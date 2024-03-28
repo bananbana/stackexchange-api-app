@@ -21,9 +21,9 @@ function App() {
 
   React.useEffect(() => {
     SE.init({
-      clientId: import.meta.env.CLIENT_ID,
-      key: import.meta.env.KEY,
-      channelUrl: import.meta.env.CHANNEL_URL,
+      clientId: import.meta.env.VITE_CLIENT_ID,
+      key: import.meta.env.VITE_KEY,
+      channelUrl: import.meta.env.VITE_CHANNEL_URL,
       complete: function (data: any) {
         console.log(data);
       },
