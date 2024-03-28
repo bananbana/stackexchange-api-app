@@ -52,6 +52,7 @@ function App() {
   const authenticate = () => {
     SE.authenticate({
       success: function (data: any) {
+        console.log(data);
         alert(
           "User Authorized with account id = " +
             data.networkUsers[0].account_id +
