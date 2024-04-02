@@ -1,36 +1,62 @@
-import { useState } from "react";
-import ListboxBox from "./ListboxBox";
-import { Input } from "./ui/input";
-import { Label } from "@radix-ui/react-dropdown-menu";
-import { Button } from "./ui/button";
-const order = [{ name: "desc" }, { name: "asc" }];
-const sortBy = [{ name: "name" }, { name: "popularity" }, { name: "activity" }];
+import { Options } from "@/types/Options";
+import { Select } from "./Select";
+import { Input } from "./ui/Input";
 
-const Navigation = () => {
-  const [selectedOrder, setSelectedOrder] = useState(order[0]);
-  const [sortedBy, setSortedBy] = useState(sortBy[0]);
+export interface NavigationProps {
+  rowsPerPage: Options[];
+  pageRows: number;
+  setPageRows: (args: number) => void;
+  order: Options[];
+  selectedOrder: string;
+  setSelectedOrder: (args: string) => void;
+  sortBy: Options[];
+  sortedBy: string;
+  setSortedBy: (args: string) => void;
+}
+
+const Navigation = ({
+  order,
+  pageRows,
+  rowsPerPage,
+  setPageRows,
+  selectedOrder,
+  setSelectedOrder,
+  sortBy,
+  sortedBy,
+  setSortedBy,
+}: NavigationProps) => {
   return (
-    <div className="grid grid-cols-3 gap-5 mb-6">
-      <div className="flex items-center">
-        <label htmlFor="rows" className="w-full">
-          Rows per page:{" "}
-        </label>
-        <Input id="rows" placeholder="rows" type="number" />
+    <div className="flex gap-5 my-4 items-center">
+      <label htmlFor="rows">Rows per page:</label>
+      <div className="flex gap-2">
+        <Input
+          type="number"
+          value={pageRows.toString()}
+          onChange={(event) => setPageRows(parseInt(event.target.value))}
+          className="w-20"
+        />
+        <Select
+          placeholder="Rows per page"
+          options={rowsPerPage}
+          selected={pageRows.toString()}
+          setSelected={(rows) => setPageRows(parseInt(rows))}
+        />
       </div>
       <div className="flex items-center gap-2">
-        <label>Sort: </label>
-        <ListboxBox
+        <label htmlFor="sort">Sort: </label>
+        <Select
+          placeholder="Order by"
           options={order}
           selected={selectedOrder}
           setSelected={setSelectedOrder}
         />
-        <ListboxBox
+        <Select
+          placeholder="Sort by"
           options={sortBy}
           selected={sortedBy}
           setSelected={setSortedBy}
         />
       </div>
-      <Button>Search</Button>
     </div>
   );
 };

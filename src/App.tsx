@@ -1,79 +1,83 @@
 import "./index.css";
 import { columns } from "./columns";
 import { DataTable } from "./components/DataTable";
-import { TagsType } from "./types/TagsType";
-import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-} from "@radix-ui/react-dropdown-menu";
-import { Button } from "./components/ui/button";
+import { useEffect } from "react";
 import Navigation from "./components/Navigation";
+import { Paginator } from "./components/Paginator";
+import useStore from "./store/useStore";
+import useTagsQuery from "./hooks/useTagsQuery";
+import usePagination from "./hooks/usePagination";
+import useSearch from "./hooks/useSearch";
 
-declare var SE: any;
+const order = [
+  { value: "desc", label: "Descending" },
+  { value: "asc", label: "Ascending" },
+];
+const sortBy = [
+  { value: "name", label: "Name" },
+  { value: "popular", label: "Popularity" },
+  { value: "activity", label: "Activity" },
+];
+const rowsPerPage = [
+  { value: "15", label: "15" },
+  { value: "25", label: "25" },
+  { value: "50", label: "50" },
+  { value: "100", label: "100" },
+];
 
 function App() {
-  const [data, _setData] = React.useState<TagsType[]>([]);
+  const [selectedOrder, setSelectedOrder] = useStore((state) => [
+    state.selectedOrder,
+    state.setSelectedOrder,
+  ]);
+  const [sortedBy, setSortedBy] = useStore((state) => [
+    state.sortedBy,
+    state.setSortedBy,
+  ]);
+  const [pageRows, setPageRows] = useStore((state) => [
+    state.pageRows,
+    state.setPageRows,
+  ]);
+  const [page, setPage] = useStore((state) => [state.page, state.setPage]);
+  const { changePage, changePageRows } = usePagination(
+    page,
+    pageRows,
+    setPage,
+    setPageRows
+  );
+  const { data, isLoading } = useTagsQuery({
+    page,
+    selectedOrder,
+    sortedBy,
+    pageRows,
+  });
+  const { search } = useSearch();
 
-  React.useEffect(() => {
-    SE.init({
-      clientId: import.meta.env.VITE_CLIENT_ID,
-      key: import.meta.env.VITE_KEY,
-      channelUrl: import.meta.env.VITE_CHANNEL_URL,
-      complete: function (data: any) {
-        console.log(data);
-      },
-    });
-  }, []);
-
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/data.json");
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const jsonData = await response.json();
-        _setData(jsonData.items);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  const authenticate = () => {
-    SE.authenticate({
-      success: function (data: any) {
-        console.log(data);
-        alert(
-          "User Authorized with account id = " +
-            data.networkUsers[0].account_id +
-            ", got access token = " +
-            data.accessToken
-        );
-      },
-      error: function (data: any) {
-        alert(
-          "An error occurred:\n" + data.errorName + "\n" + data.errorMessage
-        );
-      },
-      networkUsers: true,
-    });
-  };
+  useEffect(() => {
+    search();
+  }, [page, pageRows, selectedOrder, sortedBy]);
 
   return (
     <div className="p-2 w-3/5 mx-auto">
-      <button onClick={() => authenticate()}>login</button>
-      <Navigation />
-      <DataTable columns={columns} data={data} />
+      <Navigation
+        order={order}
+        sortedBy={sortedBy}
+        pageRows={pageRows}
+        rowsPerPage={rowsPerPage}
+        setPageRows={changePageRows}
+        selectedOrder={selectedOrder}
+        setSelectedOrder={setSelectedOrder}
+        sortBy={sortBy}
+        setSortedBy={setSortedBy}
+      />
+      <DataTable
+        columns={columns}
+        data={data ? data.items : []}
+        isLoading={isLoading}
+      />
+      {data?.has_more && (
+        <Paginator data={data} currentPage={page} setCurrentPage={changePage} />
+      )}
     </div>
   );
 }
