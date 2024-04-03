@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import Navigation, { NavigationProps } from "./Navigation";
 
 export default {
@@ -19,15 +20,9 @@ const navigationProps: NavigationProps = {
   ],
   selectedOrder: "desc",
   sortedBy: "name",
-  setPageRows: (pageRows: number) => {
-    console.log(pageRows);
-  },
-  setSelectedOrder: (order: string) => {
-    console.log(order);
-  },
-  setSortedBy: (args: string) => {
-    console.log(args);
-  },
+  setPageRows: () => {},
+  setSelectedOrder: () => {},
+  setSortedBy: () => {},
 };
 
 export const Default = {

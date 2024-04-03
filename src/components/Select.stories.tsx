@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Select, SelectProps } from "./Select";
 
 export default {
@@ -13,7 +14,7 @@ const selectProps: SelectProps = {
     { value: "activity", label: "Activity" },
   ],
   selected: " ",
-  setSelected: (args: string) => console.log("Selected: " + args),
+  setSelected: () => {},
   placeholder: "",
 };
 
