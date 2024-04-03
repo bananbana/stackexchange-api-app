@@ -34,9 +34,6 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
-  isLoading && console.log("Loading...");
-
   return (
     <div className="rounded-md border overflow-hidden">
       {isLoading || isFetching ? (
