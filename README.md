@@ -5,7 +5,7 @@ This is a simple application that utilizes the Stack Exchange API to retrieve a 
 ## Usage
 
 ## 1. Without API Key:
-- If you use the app without an API key, the functionality will be limited due to request throttling. Without a key, you can make up to 300 requests per day. Maximum page size is limited to 25.
+- If you use the app without an API key, the functionality will be limited due to request throttling. Without a key, you can make up to 300 requests per day. Maximum page size is limited to 25 items.
 - To use the app without an API key, simply run it as is.
 
 ## 2. With API Key:
