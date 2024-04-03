@@ -36,6 +36,8 @@ const useTagsQuery = ({
             throw error;
           }
         }),
+    enabled: page !== undefined && pageRows !== undefined,
+    retry: false,
   });
 };
 

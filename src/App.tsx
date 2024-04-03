@@ -39,7 +39,7 @@ function App() {
     setPage,
     setPageRows
   );
-  const { data, isLoading } = useTagsQuery({
+  const { data, isLoading, isFetching } = useTagsQuery({
     page,
     selectedOrder,
     sortedBy,
@@ -67,6 +67,7 @@ function App() {
         columns={columns}
         data={data ? data.items : []}
         isLoading={isLoading}
+        isFetching={isFetching}
       />
       {data && (
         <Paginator data={data} currentPage={page} setCurrentPage={changePage} />

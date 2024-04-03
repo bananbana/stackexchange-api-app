@@ -20,12 +20,14 @@ export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   isLoading: boolean;
+  isFetching: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   isLoading,
+  isFetching,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -33,9 +35,11 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   });
 
+  isLoading && console.log("Loading...");
+
   return (
     <div className="rounded-md border overflow-hidden">
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <div className="flex flex-col space-y-3">
           <Skeleton className="h-[180px] w-full rounded-md border border-slate-300 overflow-hidden">
             <Skeleton className="w-full h-12 bg-slate-500 rounded-none" />
