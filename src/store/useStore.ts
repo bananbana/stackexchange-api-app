@@ -20,13 +20,11 @@ const useStore = create(
       page: 1,
       pageRows: 15,
       setSelectedOrder: (order: string) => {
-        console.log("order", order);
         set({
           selectedOrder: order,
         });
       },
       setPage: (page: number) => {
-        console.log("page", page);
         set({
           page,
         });

@@ -38,7 +38,7 @@ export function DataTable<TData, TValue>({
       {isLoading ? (
         <div className="flex flex-col space-y-3">
           <Skeleton className="h-[180px] w-full rounded-md border border-slate-300 overflow-hidden">
-            <Skeleton className="w-full h-12 bg-slate-400 rounded-none" />
+            <Skeleton className="w-full h-12 bg-slate-500 rounded-none" />
             <div className="mx-auto mt-14 w-fit">
               <ClipLoader color="#94a3b8" speedMultiplier={0.7} />
             </div>
@@ -46,7 +46,7 @@ export function DataTable<TData, TValue>({
         </div>
       ) : (
         <Table>
-          <TableHeader className="bg-slate-400">
+          <TableHeader className="bg-slate-500">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

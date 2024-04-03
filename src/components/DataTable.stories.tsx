@@ -1,6 +1,5 @@
-import { DataTable, DataTableProps } from "./DataTable";
 import { Tag } from "@/types/Tag";
-import { Page } from "@/types/Page";
+import { DataTable, DataTableProps } from "./DataTable";
 import { columns } from "@/columns";
 
 export default {
@@ -9,7 +8,7 @@ export default {
   tags: ["autodocs"],
 };
 
-const dataTableProps = {
+const dataTableProps: DataTableProps<Tag, Tag> = {
   columns: columns,
   data: [
     {
@@ -93,9 +92,7 @@ const dataTableProps = {
 
 export const Default = {
   args: {
-    columns: columns,
-    data: dataTableProps.data,
-    isLoading: false,
+    ...dataTableProps,
   },
 };
 

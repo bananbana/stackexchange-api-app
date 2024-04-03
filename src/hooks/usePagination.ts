@@ -9,7 +9,7 @@ const usePagination = (
   };
 
   const changePageRows = (rows: number) => {
-    setPageRows(rows);
+    if (rows <= 100 && rows > 0) setPageRows(rows);
   };
 
   return {

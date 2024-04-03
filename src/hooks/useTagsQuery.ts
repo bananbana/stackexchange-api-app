@@ -1,5 +1,5 @@
 import { toast } from "@/components/ui/useToast";
-import { QueryParams } from "@/types/QueryParams";
+import { TagsQueryParams } from "@/types/TagsQueryParams";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ const useTagsQuery = ({
   selectedOrder,
   sortedBy,
   pageRows,
-}: QueryParams) => {
+}: TagsQueryParams) => {
   return useQuery({
     queryKey: ["tags"],
     queryFn: () =>
@@ -24,12 +24,17 @@ const useTagsQuery = ({
           },
         })
         .then((res) => res.data)
-        .catch(() => {
-          toast({
-            title: "There was an error fetching data",
-            variant: "destructive",
-          });
-          throw new Error("There was an error fetching data");
+        .catch((error) => {
+          if (error.response && error.response.status) {
+            toast({
+              title: "Bad Request",
+              description:
+                "There was a bad request: " + error.response.data.error_message,
+              variant: "destructive",
+            });
+          } else {
+            throw error;
+          }
         }),
   });
 };

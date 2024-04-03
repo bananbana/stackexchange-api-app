@@ -22,12 +22,14 @@ export function Select({
   return (
     <div className="gap-2 flex">
       <ShadcnSelect value={selected} onValueChange={setSelected}>
-        <SelectTrigger className="w-fit gap-1">
+        <SelectTrigger className="gap-1">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
           {options.map(({ value, label }) => (
-            <SelectItem value={value}>{label}</SelectItem>
+            <SelectItem value={value} key={label}>
+              {label}
+            </SelectItem>
           ))}
         </SelectContent>
       </ShadcnSelect>

@@ -7,21 +7,15 @@ export default {
 };
 
 const navigationProps: NavigationProps = {
-  rowsPerPage: [
-    { value: "15", label: "15" },
-    { value: "25", label: "25" },
-    { value: "50", label: "50" },
-    { value: "100", label: "100" },
-  ],
   pageRows: 10,
   order: [
-    { value: "desc", label: "desc" },
-    { value: "asc", label: "asc" },
+    { value: "desc", label: "Descending" },
+    { value: "asc", label: "Ascending" },
   ],
   sortBy: [
-    { value: "name", label: "name" },
-    { value: "popular", label: "popular" },
-    { value: "activity", label: "activity" },
+    { value: "name", label: "Name" },
+    { value: "popular", label: "Popularity" },
+    { value: "activity", label: "Activity" },
   ],
   selectedOrder: "desc",
   sortedBy: "name",

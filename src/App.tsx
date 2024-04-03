@@ -18,12 +18,6 @@ const sortBy = [
   { value: "popular", label: "Popularity" },
   { value: "activity", label: "Activity" },
 ];
-const rowsPerPage = [
-  { value: "15", label: "15" },
-  { value: "25", label: "25" },
-  { value: "50", label: "50" },
-  { value: "100", label: "100" },
-];
 
 function App() {
   const [selectedOrder, setSelectedOrder] = useStore((state) => [
@@ -58,12 +52,11 @@ function App() {
   }, [page, pageRows, selectedOrder, sortedBy]);
 
   return (
-    <div className="p-2 w-3/5 mx-auto">
+    <div className="p-2 w-1/2 mx-auto">
       <Navigation
         order={order}
         sortedBy={sortedBy}
         pageRows={pageRows}
-        rowsPerPage={rowsPerPage}
         setPageRows={changePageRows}
         selectedOrder={selectedOrder}
         setSelectedOrder={setSelectedOrder}
@@ -75,7 +68,7 @@ function App() {
         data={data ? data.items : []}
         isLoading={isLoading}
       />
-      {data?.has_more && (
+      {data && (
         <Paginator data={data} currentPage={page} setCurrentPage={changePage} />
       )}
     </div>

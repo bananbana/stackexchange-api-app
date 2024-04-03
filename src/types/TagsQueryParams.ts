@@ -1,4 +1,4 @@
-export type QueryParams = {
+export type TagsQueryParams = {
   page: number;
   selectedOrder: string;
   sortedBy: string;
